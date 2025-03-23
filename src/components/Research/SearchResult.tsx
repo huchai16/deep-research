@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -54,9 +54,13 @@ function SearchResult() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      suggestion: "",
+      suggestion: taskStore.suggestion,
     },
   });
+
+  useEffect(() => {
+    form.setValue("suggestion", taskStore.suggestion);
+  }, [taskStore.suggestion, form]);
 
   async function handleWriteFinalReport() {
     setIsWriting(true);

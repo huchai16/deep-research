@@ -29,8 +29,8 @@ Deep Research is a cutting-edge project built with Next.js 15, leveraging the po
 
 ## 🎯 Roadmap
 
+- [x] Support preservation of research history
 - [ ] Support editing final report and search results
-- [ ] Support preservation of research history
 - [ ] Support file upload and local knowledge base
 - [ ] Support for other LLM models
 
