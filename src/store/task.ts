@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { pick, keys } from "radash";
+import { pick } from "radash";
 
 export type TaskStore = {
   question: string;
@@ -59,7 +59,7 @@ export const useTaskStore = create<TaskStore & TaskFunction>((set, get) => ({
   reset: () => set(() => ({ ...defaultValues })),
   backup: () => {
     return {
-      ...pick(get(), keys(defaultValues) as (keyof TaskStore)[]),
+      ...pick(get(), Object.keys(defaultValues) as (keyof TaskStore)[]),
     } as TaskStore;
   },
   restore: (taskStore) => set(() => ({ ...taskStore })),

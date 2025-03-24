@@ -31,12 +31,15 @@ function formatDate(timestamp: number) {
 
 function History({ open, onClose }: HistoryProps) {
   const { t } = useTranslation();
-  const { restore } = useTaskStore();
+  const { restore, reset } = useTaskStore();
   const { history, load, remove } = useHistoryStore();
 
   async function loadHistory(id: string) {
     const data = load(id);
-    if (data) restore(data);
+    if (data) {
+      reset();
+      restore(data);
+    }
     onClose();
   }
 
@@ -60,10 +63,10 @@ function History({ open, onClose }: HistoryProps) {
               {t("research.history.noHistory")}
             </div>
           ) : (
-            <Table>
+            <Table className="max-sm:overflow-y-auto">
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t("research.history.title")}</TableHead>
+                  <TableHead>{t("research.history.name")}</TableHead>
                   <TableHead className="text-center">
                     {t("research.history.date")}
                   </TableHead>
@@ -79,12 +82,15 @@ function History({ open, onClose }: HistoryProps) {
                       <Button
                         variant="link"
                         className="p-0 h-auto text-left font-normal"
+                        title={item.title}
                         onClick={() => loadHistory(item.id)}
                       >
-                        {item.title || `${item.question.slice(0, 20)}...`}
+                        <p className="truncate w-72">
+                          {item.title || item.question}
+                        </p>
                       </Button>
                     </TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="text-center whitespace-nowrap">
                       {formatDate(item.createdAt)}
                     </TableCell>
                     <TableCell className="text-center">

@@ -39,6 +39,7 @@
     },
     "history": {
       "title": "历史记录",
+      "name": "标题",
       "date": "创建时间",
       "actions": "操作",
       "load": "加载",

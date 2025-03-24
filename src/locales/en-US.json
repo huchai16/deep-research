@@ -39,6 +39,7 @@
     },
     "history": {
       "title": "History",
+      "name": "Title",
       "emptyTip": "No history records",
       "date": "Date",
       "actions": "Action",

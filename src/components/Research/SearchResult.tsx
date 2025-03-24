@@ -63,9 +63,14 @@ function SearchResult() {
   }, [taskStore.suggestion, form]);
 
   async function handleWriteFinalReport() {
-    setIsWriting(true);
-    await writeFinalReport();
-    setIsWriting(false);
+    try {
+      accurateTimerStart();
+      setIsWriting(true);
+      await writeFinalReport();
+      setIsWriting(false);
+    } finally {
+      accurateTimerStop();
+    }
   }
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
@@ -169,6 +174,7 @@ function SearchResult() {
                     <>
                       <LoaderCircle className="animate-spin" />
                       <span className="mx-1">{status}</span>
+                      <small className="font-mono">{formattedTime}</small>
                     </>
                   ) : (
                     t("research.common.writeReport")
